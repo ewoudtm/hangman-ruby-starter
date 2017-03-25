@@ -6,4 +6,9 @@ Bundler.require
 require File.expand_path("../../lib/hangman", __FILE__)
 
 game = Hangman.new
-game.play!
+user_answer = game.greeting
+if user_answer == "n" || user_answer == "no"
+  game.no_game
+else
+  game.play!
+end
