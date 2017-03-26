@@ -1,15 +1,10 @@
-require File.expand_path('../random_word', __FILE__)
-require File.expand_path('../noose', __FILE__)
 
+class Render
+  attr_reader :render
 
-class Hangman
   def initialize
-    @random_word = RandomWord.new
-    @bad_guesses_left = 10
-    @new_noose = Noose.new
-
+    @render = render
   end
-
 
   def greeting
     puts '###################################################################'
@@ -29,29 +24,4 @@ class Hangman
     #answer = gets.chomp.downcase
     answer = "yes"
   end
-
-  def play!
-    puts 'Hi from lib/hangman.rb!'
-    puts @bad_guesses_left
-    #random_word = @random_word
-    hangman_word = @random_word
-    puts hangman_word.word
-
-    new_status_noose = @new_noose.status
-    draw_noose = @new_noose.draw
-    puts ""
-    
-    guess = hangman_word.positions_for()
-    puts guess
-  end
-
-  def no_game
-    puts 'Okay, bye!'
-  end
-
-  def render_status
-
-  end
-
-
 end
