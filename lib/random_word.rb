@@ -16,22 +16,22 @@ class RandomWord
   end
 
   def letter_in_word?
-    letter = @letter
-    if (/#{letter}/ =~ word) >= 0
-      letters = word.scan /\w/
-      letters.each_with_index do |lttr, index|
-        if lttr == letter
-          @guessed[index] = letter
-        end
-      Render.success(letter)
-      return true
+    counter = 0
+    letters = @word.scan /\w/
+    letters.each_with_index do |lttr, index|
+      if lttr == @letter
+        @guessed[index] = @letter
+        counter += 1
       end
+    end
+    if counter > 0
+      Render.success(@letter)
+      return true
     else
-      Render.wrong(letter)
+      Render.wrong(@letter)
       return false
     end
   end
-
 
 
   # def positions_for(characters: [])

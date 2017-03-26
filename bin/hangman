@@ -7,9 +7,6 @@ require File.expand_path("../../lib/hangman", __FILE__)
 
 game = Hangman.new
 
-user_answer = Render.greeting
-if user_answer == "n" || user_answer == "no"
-  Render.bye
-else
-  game.play!
-end
+Render.greeting
+
+Hangman.play? ? game.play! : Render.bye

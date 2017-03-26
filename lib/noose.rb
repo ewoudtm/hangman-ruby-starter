@@ -8,7 +8,7 @@ class Noose
 
   def draw
     space = " "
-    hash = "#"
+    pound = "#"
     flower = "\\|/"
     @noose.each do |row|
       5.times{print space}
@@ -17,10 +17,10 @@ class Noose
       end
       print "\n"
     end
-    10.times{print hash}
+    10.times{print pound}
     print flower
-    8.times{print hash}
-    print "\n"
+    8.times{print pound}
+    print "\n\n"
   end
 
   def add(guesses_left)

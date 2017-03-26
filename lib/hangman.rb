@@ -13,27 +13,62 @@ class Hangman
 
   def play!
     while @bad_guesses_left != 0 do
-      puts 'Hi from lib/hangman.rb!'
-      puts @bad_guesses_left
-      puts @random_word.word
+
+
+
+      print @noose.draw
+      print "Number of bad guesses left: #{@bad_guesses_left}\n\n"
+      print "Letters chosen: #{@random_word.letters_guessed.join(" ")}\n\n"
+      print "Your word: #{@random_word.guessed.join(" ")}\n\n"
+
       @random_word.guess
+
       if !@random_word.letter_in_word?
         @bad_guesses_left -= 1
         @noose.add(@bad_guesses_left)
       end
-      Render.status
-      break if won?
+
+      if won?
+        Render.victory
+        if Hangman.play?
+          game = Hangman.new
+          game.play!
+        else
+          Render.bye
+        end
+      end
+
+      if lost?
+        Render.lost
+        if Hangman.play?
+          game = Hangman.new
+          game.play!
+        else
+          Render.bye
+        end
+      end
+
     end
+
   end
 
   def won?
     word = @random_word.word.scan /\w/
-    @random_word.letters_guessed === word ? true : false
+    @random_word.guessed === word ? true : false
   end
 
   def lost?
     @bad_guesses_left == 0 ? true : false
   end
 
+  def self.play?
+    puts 'Would you like to play? yes/no'
+    answer = gets.chomp.downcase
+    if answer == "y" || answer == "yes"
+      return true
+    elsif answer == "n" || answer == "no"
+      return false
+    end
+  end
 
 end
