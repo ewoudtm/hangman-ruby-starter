@@ -9,26 +9,10 @@ class RandomWord
     @letters_guessed = []
   end
 
-  def positions_for(characters: [])
-    # for you to implement :)
-    print "Please enter a letter: "
-    letter = gets.chomp
-    letters = word.scan /\w/
-    letters.each do |ltr|
-      if ltr == letter
-        characters << letter
-      else
-        characters << ""
-      end
-    end
-    print characters
-  end
-
   def guess
     print "Please enter a letter: "
-    @letter = gets.chomp
+    @letter = gets.chomp.downcase
     @letters_guessed << @letter
-
   end
 
   def letter_in_word?
@@ -39,12 +23,31 @@ class RandomWord
         if lttr == letter
           @guessed[index] = letter
         end
+      Render.success(letter)
       return true
       end
     else
+      Render.wrong(letter)
       return false
     end
   end
+
+
+
+  # def positions_for(characters: [])
+  #   # for you to implement :)
+  #   print "Please enter a letter: "
+  #   letter = gets.chomp.downcase
+  #   letters = word.scan /\w/
+  #   letters.each do |ltr|
+  #     if ltr == letter
+  #       characters << letter
+  #     else
+  #       characters << ""
+  #     end
+  #   end
+  #   print characters
+  # end
 
 
 end

@@ -3,37 +3,36 @@ require File.expand_path('../noose', __FILE__)
 require File.expand_path('../render', __FILE__)
 
 class Hangman
+  attr_reader :bad_guesses_left, :random_word
+
   def initialize
     @random_word = RandomWord.new
-    @bad_guesses_left = 10
-    @new_noose = Noose.new
+    @bad_guesses_left = 9
+    @noose = Noose.new
   end
 
   def play!
-    puts 'Hi from lib/hangman.rb!'
-    puts @bad_guesses_left
-    hangman_word = @random_word
-    puts hangman_word.word
-    hangman_word.guess
-    if hangman_word.letter_in_word?
-      Render.succes
+    while @bad_guesses_left != 0 do
+      puts 'Hi from lib/hangman.rb!'
+      puts @bad_guesses_left
+      puts @random_word.word
+      @random_word.guess
+      if !@random_word.letter_in_word?
+        @bad_guesses_left -= 1
+        @noose.add(@bad_guesses_left)
+      end
       Render.status
-    else
-      @bad_guesses_left -= 1
-      Render.wrong
-      Render.status
+      break if won?
     end
-
-    new_status_noose = @new_noose.status
-    draw_noose = @new_noose.draw
-    puts ""
-    arr =[]
-    guess = hangman_word.positions_for()
-    puts arr
   end
 
-  def render_status
+  def won?
+    word = @random_word.word.scan /\w/
+    @random_word.letters_guessed === word ? true : false
+  end
 
+  def lost?
+    @bad_guesses_left == 0 ? true : false
   end
 
 
