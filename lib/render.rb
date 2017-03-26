@@ -1,12 +1,9 @@
+require File.expand_path('../noose', __FILE__)
 
 class Render
   attr_reader :render
 
-  def initialize
-    @render = render
-  end
-
-  def greeting
+  def self.greeting
     puts '###################################################################'
     puts '# Welcome to Hangman!                                             #'
     puts '###################################################################'
@@ -23,5 +20,33 @@ class Render
     puts 'Would you like to play? yes/no'
     #answer = gets.chomp.downcase
     answer = "yes"
+  end
+
+  def self.status
+
+    puts "Your word: " + hangman_word.guessed.join(" ")
+
+
+  end
+
+  def self.wrong
+    puts '###################################################################'
+    puts '# Unfortunately that letter is not in the word!                   #'
+    puts '###################################################################'
+    puts ''
+    puts ''
+  end
+
+  def self.success
+    puts '###################################################################'
+    puts '# Yes! That letter is not in the word!                            #'
+    puts '###################################################################'
+    puts ''
+    puts ''
+  end
+
+
+  def self.bye
+    puts "OK, bye!"
   end
 end
